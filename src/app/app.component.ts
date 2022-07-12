@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-form';
+  tabsArray = Array();
+
+  addTab(formValue: any) {
+    this.tabsArray[formValue.tabsNumber] = formValue;
+    console.log(this.tabsArray);
+  }
 }
