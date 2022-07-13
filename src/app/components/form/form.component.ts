@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -7,24 +7,40 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  form!: FormGroup;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      tabsNumber: new FormControl(0, [Validators.required, Validators.min(0)]),
+    });
   }
-
-  form = new FormGroup({
-    tabsNumber: new FormControl(0, [Validators.required]),
-    title: new FormControl("", [Validators.required]),
-    content: new FormControl("", [Validators.required]),
-  });
+  
+  createFormGroup(tabsNumber: number){
+    if(this.form.touched){
+      this.form = new FormGroup({
+        tabsNumber: new FormControl(tabsNumber, [Validators.required, Validators.min(0)]),
+      });
+    }
+    for(let i = 0; i < tabsNumber; i++){
+      this.form.addControl("title"+i.toString(), new FormControl('', Validators.required));
+      this.form.addControl("content"+i.toString(), new FormControl('', Validators.required));
+    }
+  }
 
   tabsToPush = Array();
 
   @Output() eventToTab = new EventEmitter();
 
   setArraySize() {
-    this.tabsToPush = Array(this.form.value.tabsNumber);
+    if(this.form.value.tabsNumber >= 0 && this.form.value.tabsNumber != null){
+      this.createFormGroup(this.form.value.tabsNumber);
+      this.tabsToPush = Array(this.form.value.tabsNumber);
+    }
+    else{
+      this.tabsToPush = Array(0);
+    }
   }
 
   onSubmit() {

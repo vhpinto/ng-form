@@ -11,14 +11,14 @@
             (change)="setArraySize()"
           />
         </div>
-        <div *ngFor="let tab of tabsToPush">
+        <div *ngFor="let tab of tabsToPush, let i = index">
           <div class="mb-3">
             <label class="form-label">Title</label>
             <input
               type="text" 
               class="form-control" 
               id="title" 
-              formControlName="title"
+              formControlName="title{{i}}"
               />
             </div>
             <div class="mb-3">
@@ -27,7 +27,7 @@
               type="text" 
               class="form-control" 
               id="content" 
-              formControlName="content"
+              formControlName="content{{i}}"
             />
           </div>
         </div>

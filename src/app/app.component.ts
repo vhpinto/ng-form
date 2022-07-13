@@ -8,10 +8,21 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent {
   title = 'ng-form';
-  tabsArray = Array();
+  titlesArray = Array();
+  contentsArray = Array();
 
   addTab(formValue: any) {
-    this.tabsArray[formValue.tabsNumber] = formValue;
-    console.log(this.tabsArray);
+    this.titlesArray = Array();
+    this.contentsArray = Array();
+    for(var i in formValue){
+      if(i != "tabsNumber"){
+        if(i.startsWith("title")){
+          this.titlesArray.push(formValue[i])
+        }
+        else{
+          this.contentsArray.push(formValue[i]);
+        }
+      }
+    }
   }
 }

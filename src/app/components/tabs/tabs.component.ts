@@ -12,11 +12,12 @@ export class TabsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() tabs = Array();
+  @Input() titles = Array();
+  @Input() contents = Array();
 
   contentToShow = "";
 
   pushIndex (index: number) {
-    this.contentToShow = this.tabs[index].content;
+    this.contentToShow = this.contents[index];
   }
 }
