@@ -10,6 +10,12 @@
             formControlName="tabsNumber"
             (change)="setArraySize()"
           />
+          <div class="text-danger" *ngIf="registerFormControl['tabsNumber']['errors']?.['required']">
+            Number of tabs is required.
+          </div>
+          <div class="text-danger" *ngIf="registerFormControl['tabsNumber']['errors']?.['min']">
+            Number of tabs cant be less than 0.
+          </div>
         </div>
         <div *ngFor="let tab of tabsToPush, let i = index">
           <div class="mb-3">
@@ -20,6 +26,9 @@
               id="title" 
               formControlName="title{{i}}"
               />
+              <div class="text-danger" *ngIf="registerFormControl['title{{i}}']['errors']?.['required']">
+                Number of tabs is required.
+              </div>
             </div>
             <div class="mb-3">
               <label class="form-label">Content</label>

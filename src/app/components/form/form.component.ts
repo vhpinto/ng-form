@@ -43,7 +43,15 @@ export class FormComponent implements OnInit {
     }
   }
 
+  get registerFormControl() {
+    console.log(this.form.controls)
+    return this.form.controls;
+  }
+
   onSubmit() {
-    this.eventToTab.emit(this.form.value);
+    if (this.form.valid) {
+      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
+      this.eventToTab.emit(this.form.value);
+    }
   }
 }
